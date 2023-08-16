@@ -1,5 +1,6 @@
 import pytest
 from pom.login_page_elements import LoginPage
+from playwright.sync_api import Playwright
 
 
 @pytest.fixture()
@@ -10,7 +11,7 @@ def set_up(page):
     yield page
 
 
-@pytest.firxure()
+@pytest.fixture()
 def login_set_up(set_up, password, username):
     page = set_up
 

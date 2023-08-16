@@ -8,11 +8,12 @@ from pom.login_page_elements import LoginPage
 @pytest.mark.parametrize("password", ["123", "ahah", "shhs"])
 def test_invalid_credentials(login_set_up, username, password) -> None:
     page = login_set_up
-    login_page = LoginPage
 
     expect(page.locator("#error")).to_be_visible()
-#
-#
+
+
+
+
 # def run(playwright: Playwright) -> None:
 #     browser = playwright.chromium.launch(headless=False)
 #     context = browser.new_context()
