@@ -25,8 +25,8 @@ def login_set_up(set_up, password, username):
 
 @pytest.fixture(scope='session')
 def context_creation(playwright):
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
+    browser = playwright.chromium.launch(headless=True, args=["--start-maximized"])
+    context = browser.new_context(no_viewport=True)
 
     page = context.new_page()
     page.goto("https://practicetestautomation.com/practice-test-login/")
