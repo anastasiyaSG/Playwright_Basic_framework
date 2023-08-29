@@ -2,7 +2,22 @@ import pytest
 from pom.login_page_elements import LoginPage
 from playwright.sync_api import Playwright
 
+from playwright.sync_api import sync_playwright
 
+from playwright_recaptcha import recaptchav2
+
+
+@pytest.fixture()
+def set_up_recaptcha() -> None:
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=False, slow_mo=45)
+        page = browser.new_page()
+        page.goto("https://wallprinter.bg/")
+
+        with recaptchav2.SyncSolver(page, capsolver_api_key="your_api_key") as solver:
+            token = solver.solve_recaptcha(wait=True, image_challenge=True)
+            print(token)
+    yield page
 @pytest.fixture()
 def set_up(page):
     page.goto("https://practicetestautomation.com/practice-test-login/")
@@ -47,4 +62,5 @@ def login_session(context_creation):
     page.set_default_timeout(3000)
 
     yield page
+
 
